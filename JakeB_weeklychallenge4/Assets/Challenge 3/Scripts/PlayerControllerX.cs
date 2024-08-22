@@ -50,8 +50,16 @@ public class PlayerControllerX : MonoBehaviour
             explosionParticle.Play();
             playerAudio.PlayOneShot(explodeSound, 1.0f);
             gameOver = true;
+
+            // Stop the background scrolling
+            RepeatBackgroundX[] backgroundScripts = FindObjectsOfType<RepeatBackgroundX>();
+            foreach (RepeatBackgroundX background in backgroundScripts) {
+                background.moveSpeed = 0;
+            }
+
             Debug.Log("Game Over!");
             Destroy(other.gameObject);
+            Destroy(gameObject, 1f);
         } 
 
         // if player collides with money, fireworks
